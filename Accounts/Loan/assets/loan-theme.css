@@ -1,0 +1,470 @@
+/* ============================================================
+   Sadakalo Loan Management — স্বয়ংসম্পূর্ণ থিম
+   loan-theme.css
+   বাইরের কোনো CSS ফাইলের উপর নির্ভর করে না।
+   হালকা (light) ও গাঢ় (dark) — দুই থিমই অন্তর্ভুক্ত।
+   ============================================================ */
+
+/* ---------- ১. থিম ভেরিয়েবল ---------- */
+:root {
+    --brand-1: #6d5efc;
+    --brand-2: #7c3aed;
+    --brand-3: #a855f7;
+    --header-grad: linear-gradient(135deg, #6d5efc 0%, #7c3aed 55%, #a855f7 100%);
+
+    --c-blue:   #0ea5e9;
+    --c-green:  #10b981;
+    --c-red:    #ef4444;
+    --c-purple: #8b5cf6;
+    --c-orange: #f59e0b;
+    --c-violet: #a855f7;
+
+    --bg:       #eef1f8;
+    --surface:  #ffffff;
+    --surface-2:#f8fafc;
+    --text:     #0f172a;
+    --muted:    #64748b;
+    --border:   #e2e8f0;
+
+    --radius-lg: 22px;
+    --radius:    16px;
+    --radius-sm: 11px;
+    --shadow-card: 0 10px 30px -12px rgba(15, 23, 42, .18);
+    --shadow-soft: 0 4px 14px -6px rgba(15, 23, 42, .12);
+    --font: 'Hind Siliguri', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+[data-bs-theme="dark"] {
+    --bg:       #0b1020;
+    --surface:  #151b2e;
+    --surface-2:#1b2236;
+    --text:     #e5e9f5;
+    --muted:    #94a3b8;
+    --border:   #263050;
+    --shadow-card: 0 12px 34px -14px rgba(0, 0, 0, .6);
+    --shadow-soft: 0 6px 18px -8px rgba(0, 0, 0, .5);
+}
+
+/* ---------- ২. বেস ---------- */
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+    transition: background .25s ease, color .25s ease;
+}
+
+body { padding-bottom: 40px; }
+
+a { color: var(--brand-1); text-decoration: none; }
+a:hover { color: var(--brand-2); }
+
+.app-shell {
+    max-width: 560px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ---------- ৩. হেডার ---------- */
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--header-grad);
+    padding: 12px 0 10px;
+    box-shadow: 0 6px 20px -10px rgba(79, 70, 229, .5);
+}
+
+.hdr-row {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-badge {
+    width: 42px; height: 42px;
+    border-radius: 13px;
+    display: grid; place-items: center;
+    background: rgba(255, 255, 255, .18);
+    border: 1.5px solid rgba(255, 255, 255, .4);
+    color: #fff; font-size: 1.15rem;
+}
+
+.brand-title { color: #fff; font-weight: 800; font-size: .96rem; line-height: 1.1; }
+.brand-sub   { color: rgba(255, 255, 255, .82); font-size: .58rem; font-weight: 700;
+               letter-spacing: 1.2px; text-transform: uppercase; margin-top: 2px; }
+
+.back-btn, .icon-pill {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    background: rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, .28);
+    color: #fff; font-size: 1rem;
+    cursor: pointer;
+    transition: background .18s ease, transform .12s ease;
+}
+.back-btn:hover, .icon-pill:hover { background: rgba(255, 255, 255, .3); color: #fff; }
+.icon-pill:active { transform: scale(.92); }
+.icon-pill.danger:hover { background: rgba(239, 68, 68, .85); }
+
+/* ---------- ৪. মডিউল নেভিগেশন ---------- */
+.module-nav {
+    max-width: 560px;
+    margin: 10px auto 0;
+    display: flex; gap: 6px;
+    padding: 0 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.module-nav::-webkit-scrollbar { display: none; }
+.module-nav a {
+    flex: 0 0 auto;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: .68rem; font-weight: 800; white-space: nowrap;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .26);
+    transition: background .18s ease;
+}
+.module-nav a:hover { background: rgba(255, 255, 255, .32); color: #fff; }
+
+/* ---------- ৫. হিরো ব্যানার ---------- */
+.hero {
+    position: relative;
+    margin-top: 14px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border);
+    background: var(--header-grad);
+    min-height: 122px;
+}
+.hero-img { display: block; width: 100%; min-height: 122px; max-height: 180px;
+            object-fit: cover; position: relative; z-index: 1; }
+.hero-scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(180deg, rgba(79,70,229,.12) 0%, rgba(2,6,23,.30) 55%, rgba(2,6,23,.74) 100%); }
+.hero-cap { position: absolute; left: 16px; right: 16px; bottom: 13px; z-index: 3;
+            display: flex; align-items: center; gap: 12px; }
+.hero-logo { flex-shrink: 0; width: 48px; height: 48px; border-radius: 14px; overflow: hidden;
+    display: grid; place-items: center; color: #fff; font-size: 1.3rem;
+    background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.55);
+    box-shadow: 0 8px 18px -8px rgba(0,0,0,.55); }
+.hero-logo img { width: 100%; height: 100%; object-fit: cover; }
+.hero-title { color: #fff; font-weight: 800; font-size: 1.05rem; line-height: 1.12;
+              text-shadow: 0 2px 10px rgba(0,0,0,.5); }
+.hero-sub { color: rgba(255,255,255,.88); font-size: .54rem; font-weight: 800;
+    letter-spacing: 1.6px; text-transform: uppercase; margin-top: 3px; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+
+/* ---------- ৬. স্ট্যাট কার্ড ---------- */
+.stat-grid { display: grid; gap: 10px; }
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+.stat-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--brand-1);
+}
+.stat-card.tone-green::before  { background: var(--c-green); }
+.stat-card.tone-blue::before   { background: var(--c-blue); }
+.stat-card.tone-red::before    { background: var(--c-red); }
+.stat-card.tone-purple::before { background: var(--c-purple); }
+.stat-card .si { width: 34px; height: 34px; margin: 0 auto 6px; border-radius: 10px;
+    display: grid; place-items: center; font-size: .92rem; color: #fff; background: var(--brand-1); }
+.stat-card.tone-green .si  { background: var(--c-green); }
+.stat-card.tone-blue .si   { background: var(--c-blue); }
+.stat-card.tone-red .si    { background: var(--c-red); }
+.stat-card.tone-purple .si { background: var(--c-purple); }
+.stat-card .sv { font-weight: 900; font-size: 1.02rem; color: var(--text); line-height: 1.1; }
+.stat-card .sl { font-size: .58rem; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .04em; margin-top: 3px; }
+
+/* ---------- ৭. কার্ড ---------- */
+.app-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+.card-head {
+    display: flex; align-items: center; gap: 9px;
+    padding: 13px 15px;
+    font-weight: 800; font-size: .86rem; color: var(--text);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+}
+.card-body { padding: 15px; }
+.chi { width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center;
+       color: #fff; font-size: .74rem; flex-shrink: 0; background: var(--brand-1); }
+
+/* ---------- ৮. নেভিগেশন গ্রিড ---------- */
+.app-nav { display: grid; gap: 10px; }
+.nav-cell {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 12px 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: transform .12s ease, box-shadow .18s ease;
+}
+.nav-cell:active { transform: scale(.96); }
+.nav-cell:hover { box-shadow: 0 8px 22px -10px rgba(109, 94, 252, .4); }
+.nav-orb {
+    width: 46px; height: 46px; border-radius: 14px;
+    display: grid; place-items: center; color: #fff; font-size: 1.15rem;
+    background: var(--header-grad);
+    box-shadow: 0 8px 18px -8px rgba(109, 94, 252, .55);
+}
+.nav-orb.g-bank    { background: linear-gradient(135deg, #6d5efc, #8b5cf6); }
+.nav-orb.g-pay     { background: linear-gradient(135deg, #10b981, #059669); }
+.nav-orb.g-profile { background: linear-gradient(135deg, #f59e0b, #f97316); }
+.nav-orb.g-ledger  { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+.nav-orb.g-dps     { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+.nav-label { font-size: .66rem; font-weight: 800; color: var(--text); text-align: center; }
+
+/* ---------- ৯. ফর্ম ---------- */
+.field-label {
+    display: block; font-size: .66rem; font-weight: 800; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .03em; margin-bottom: 5px;
+}
+.app-input {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+    font-size: .86rem;
+    font-family: inherit;
+    transition: border-color .16s ease, box-shadow .16s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.app-input:focus {
+    outline: none;
+    border-color: var(--brand-1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-1) 18%, transparent);
+}
+select.app-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 34px;
+}
+
+/* ---------- ১০. বোতাম ---------- */
+.app-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: .82rem; font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+    background: var(--brand-1);
+    transition: transform .12s ease, filter .16s ease, box-shadow .16s ease;
+    box-shadow: 0 6px 16px -8px rgba(109, 94, 252, .6);
+}
+.app-btn:hover  { filter: brightness(1.06); }
+.app-btn:active { transform: scale(.97); }
+.app-btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn-blue   { background: var(--c-blue);   box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--c-blue) 70%, transparent); }
+.btn-green  { background: var(--c-green);  box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--c-green) 70%, transparent); }
+.btn-red    { background: var(--c-red);    box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--c-red) 70%, transparent); }
+.btn-orange { background: var(--c-orange); box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--c-orange) 70%, transparent); }
+.btn-violet { background: var(--c-violet); box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--c-violet) 70%, transparent); }
+.btn-dark   { background: #334155; box-shadow: 0 6px 16px -8px rgba(51, 65, 85, .7); }
+
+/* ---------- ১১. চিপ / ব্যাজ ---------- */
+.chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: .62rem; font-weight: 800;
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+}
+.chip.blue  { background: color-mix(in srgb, var(--c-blue) 14%, var(--surface)); color: var(--c-blue); border-color: transparent; }
+.chip.green { background: color-mix(in srgb, var(--c-green) 16%, var(--surface)); color: var(--c-green); border-color: transparent; }
+.chip.red   { background: color-mix(in srgb, var(--c-red) 16%, var(--surface)); color: var(--c-red); border-color: transparent; }
+
+/* কিস্তির তারিখের ব্যাজ */
+.due-chip { font-size: .58rem; font-weight: 800; padding: 3px 9px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; margin-top: 5px; }
+.due-overdue { background: color-mix(in srgb, var(--c-red) 18%, var(--surface)); color: var(--c-red); }
+.due-today   { background: color-mix(in srgb, var(--c-red) 12%, var(--surface)); color: var(--c-red); }
+.due-soon    { background: color-mix(in srgb, var(--c-orange) 20%, var(--surface)); color: var(--c-orange); }
+.due-normal  { background: color-mix(in srgb, var(--c-blue) 14%, var(--surface)); color: var(--c-blue); }
+
+/* ---------- ১২. সেগমেন্ট টগল ---------- */
+.seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--border);
+       border-radius: 999px; padding: 3px; gap: 2px; }
+.seg button {
+    border: none; background: transparent; color: var(--muted);
+    font-family: inherit; font-size: .7rem; font-weight: 800;
+    padding: 6px 14px; border-radius: 999px; cursor: pointer;
+    transition: background .16s ease, color .16s ease;
+}
+.seg button.on { background: var(--header-grad); color: #fff; box-shadow: 0 4px 10px -4px rgba(109, 94, 252, .55); }
+
+/* ---------- ১৩. প্রোফাইল কার্ড ---------- */
+.profile-card { cursor: pointer; padding: 14px; transition: transform .12s ease, box-shadow .18s ease; }
+.profile-card:active { transform: scale(.985); }
+.profile-card:hover { box-shadow: 0 10px 26px -12px rgba(109, 94, 252, .4); }
+.profile-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.profile-name { font-weight: 800; font-size: .92rem; color: var(--text); line-height: 1.25; }
+.profile-acc { font-size: .62rem; font-weight: 700; color: var(--muted); margin-top: 2px; }
+.profile-amt { font-weight: 900; font-size: 1.02rem; color: var(--c-blue); white-space: nowrap; }
+.profile-meta { display: flex; align-items: center; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
+
+/* ---------- ১৪. বিস্তারিত টাইল ---------- */
+.det-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 4px 0; }
+.det-tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 12px; display: flex; flex-direction: column; gap: 3px; }
+.det-tile .dl { font-size: .58rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+.det-tile .dv { font-size: .84rem; font-weight: 800; color: var(--text); }
+
+/* ---------- ১৫. টেবিল / লেজার ---------- */
+.ledger-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.app-table { width: 100%; border-collapse: collapse; font-size: .74rem; }
+.app-table th, .app-table td { padding: 9px 11px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.app-table th { background: var(--surface-2); font-weight: 800; color: var(--muted);
+    font-size: .62rem; text-transform: uppercase; letter-spacing: .03em; position: sticky; top: 0; }
+.app-table tbody tr:hover { background: var(--surface-2); }
+.app-table .text-end { text-align: right; }
+.app-table .text-center { text-align: center; }
+.amt-pos { color: var(--c-green); font-weight: 800; }
+.amt-neg { color: var(--c-red); font-weight: 800; }
+.amt-bal { color: var(--text); font-weight: 800; }
+.row-profit  { background: color-mix(in srgb, var(--c-blue) 6%, transparent); }
+.row-payment { background: color-mix(in srgb, var(--c-green) 6%, transparent); }
+
+.toolbar { display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 15px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+
+.mini-act {
+    width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--muted); cursor: pointer; font-size: .64rem;
+    transition: all .14s ease;
+}
+.mini-act.act-edit:hover { border-color: var(--c-blue); color: var(--c-blue); }
+.mini-act.act-del:hover  { border-color: var(--c-red); color: var(--c-red); }
+
+/* ---------- ১৬. পেজিনেশন ---------- */
+.pager { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; padding: 12px 8px 4px; }
+.pg-btn { min-width: 32px; height: 32px; padding: 0 8px; border-radius: 9px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text); font-weight: 800; font-size: .72rem; cursor: pointer; transition: all .15s ease; }
+.pg-btn:hover:not(:disabled):not(.on) { border-color: var(--brand-1); color: var(--brand-1); }
+.pg-btn.on { background: var(--brand-1); color: #fff; border-color: var(--brand-1); }
+.pg-btn:disabled { opacity: .4; cursor: not-allowed; }
+.pg-dots { color: var(--muted); font-weight: 800; padding: 0 2px; }
+.pg-info { width: 100%; text-align: center; font-size: .6rem; font-weight: 700; color: var(--muted); margin-top: 4px; }
+
+/* ---------- ১৭. অবস্থা বার্তা ---------- */
+.loading { padding: 24px; text-align: center; color: var(--muted); font-size: .82rem; font-weight: 700; }
+.empty-state { padding: 24px 16px; text-align: center; color: var(--muted); font-size: .82rem; font-weight: 700; }
+
+/* ---------- ১৮. টোস্ট ---------- */
+.toast-stack { position: fixed; left: 0; right: 0; top: 0; z-index: 1090; display: flex;
+    flex-direction: column; align-items: center; gap: 10px; padding: 14px 12px 0;
+    pointer-events: none; max-width: 560px; margin-inline: auto; }
+.toast { pointer-events: auto; width: 100%; display: flex; align-items: center; gap: 12px;
+    padding: 13px 15px; border-radius: 16px; border: 1px solid var(--tc-border, var(--border));
+    background: var(--tc-bg, var(--surface)); box-shadow: 0 14px 32px -16px rgba(15,23,42,.45);
+    font-weight: 700; font-size: .82rem; line-height: 1.35; color: var(--tc-text, var(--text));
+    transform: translateY(-18px); opacity: 0;
+    transition: transform .34s cubic-bezier(.32,.72,0,1), opacity .28s ease; }
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast .tc-ic { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; display: grid;
+    place-items: center; color: #fff; font-size: .82rem; background: var(--tc-accent, var(--brand-1));
+    box-shadow: 0 6px 14px -6px var(--tc-accent, var(--brand-1)); }
+.toast .tc-msg { flex: 1; min-width: 0; }
+.toast.t-success { --tc-accent: var(--c-green); --tc-bg: color-mix(in srgb, var(--c-green) 12%, var(--surface));
+    --tc-border: color-mix(in srgb, var(--c-green) 36%, transparent); --tc-text: color-mix(in srgb, var(--c-green) 72%, var(--text)); }
+.toast.t-error { --tc-accent: var(--c-red); --tc-bg: color-mix(in srgb, var(--c-red) 12%, var(--surface));
+    --tc-border: color-mix(in srgb, var(--c-red) 36%, transparent); --tc-text: color-mix(in srgb, var(--c-red) 74%, var(--text)); }
+
+/* ---------- ১৯. ইউটিলিটি (Bootstrap ছাড়া চললেও কাজ করে) ---------- */
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: .25rem; }
+.mb-2 { margin-bottom: .5rem; }
+.me-1 { margin-right: .25rem; }
+.mt-2 { margin-top: .5rem; }
+.px-3 { padding-left: 1rem; padding-right: 1rem; }
+.p-3 { padding: 1rem; }
+.pb-3 { padding-bottom: 1rem; }
+.pb-4 { padding-bottom: 1.5rem; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.align-items-center { align-items: center; }
+.align-items-start { align-items: flex-start; }
+.justify-content-between { justify-content: space-between; }
+.text-center { text-align: center; }
+.text-end { text-align: right; }
+.text-nowrap { white-space: nowrap; }
+.text-capitalize { text-transform: capitalize; }
+.text-muted { color: var(--muted); }
+.gap-1 { gap: .25rem; }
+.gap-2 { gap: .5rem; }
+.gap-3 { gap: 1rem; }
+.w-auto { width: auto; }
+.border-bottom { border-bottom: 1px solid var(--border); }
+.row { display: flex; flex-wrap: wrap; margin: 0 -4px; }
+.row.g-2 > [class^="col"] { padding: 0 4px; }
+.col-5 { flex: 0 0 41.66%; max-width: 41.66%; }
+.col-6 { flex: 0 0 50%; max-width: 50%; }
+.col-7 { flex: 0 0 58.33%; max-width: 58.33%; }
+
+/* ---------- ২০. রেসপন্সিভ ---------- */
+@media (max-width: 400px) {
+    .stat-card .sv { font-size: .9rem; }
+    .det-tiles { grid-template-columns: 1fr; }
+    .nav-label { font-size: .6rem; }
+    .app-table { font-size: .68rem; }
+}
+
+@media (min-width: 620px) {
+    .app-shell, .hdr-row, .module-nav, .toast-stack { max-width: 620px; }
+}
+
+/* ---------- ২১. প্রিন্টে অ্যাপ ক্রোম লুকানো ---------- */
+@media print {
+    .app-header, .module-nav, .app-nav, .toast-stack, .icon-pill, .back-btn { display: none !important; }
+    body { background: #fff; }
+}
+
+/* ---------- ২২. রসিদের থাম্বনেইল ---------- */
+.receipt-thumb { display: inline-block; }
+.receipt-thumb img {
+    width: 34px; height: 34px; object-fit: cover; border-radius: 6px;
+    border: 1px solid var(--border); cursor: pointer; transition: transform .15s ease;
+}
+.receipt-thumb img:hover { transform: scale(1.15); border-color: var(--brand-1); }
+.swal2-file { margin-top: 8px !important; }
