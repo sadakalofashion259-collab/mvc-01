@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Idempotently injects the premium.css <link> right before </head>
+# in every PHP file (skips index.php and credit_card.php).
+# Re-runnable: detects the marker and skips already-patched files.
+set -euo pipefail
+ROOT="${1:-$(pwd)}"
+MARKER='<!-- SKF_PREMIUM_CSS -->'
+
+count_patched=0
+count_skipped=0
+count_already=0
+
+while IFS= read -r -d '' f; do
+    rel="${f#$ROOT/}"
+    base="$(basename "$rel")"
+    # Skip excluded files
+    if [[ "$base" == "index.php" || "$base" == "credit_card.php" ]]; then
+        count_skipped=$((count_skipped+1)); continue
+    fi
+    # Already patched?
+    if grep -q "$MARKER" "$f"; then
+        count_already=$((count_already+1)); continue
+    fi
+    # Has </head>?
+    if ! grep -qi '</head>' "$f"; then
+        count_skipped=$((count_skipped+1)); continue
+    fi
+    # Compute relative prefix: number of slashes in $rel = depth
+    depth=$(awk -F'/' '{print NF-1}' <<<"$rel")
+    prefix=""
+    for ((i=0;i<depth;i++)); do prefix="${prefix}../"; done
+
+    link="    ${MARKER}\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover\">\n    <meta name=\"theme-color\" content=\"#0a0f1e\">\n    <link rel=\"stylesheet\" href=\"${prefix}assets/style_css/premium.css\">\n    <script>(function(){try{var s=localStorage.getItem('sk_theme');document.addEventListener('DOMContentLoaded',function(){if(s==='light')document.body.classList.add('light-mode');});}catch(e){}})();</script>"
+
+    # Insert before the first </head> (case-insensitive)
+    # Use awk for safety with multi-line escapes
+    awk -v ins="$link" 'BEGIN{done=0} {
+        if (!done && tolower($0) ~ /<\/head>/) {
+            n=split(ins,arr,"\n");
+            for(i=1;i<=n;i++) print arr[i];
+            done=1;
+        }
+        print $0;
+    }' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+    count_patched=$((count_patched+1))
+    echo "  [+] $rel  (prefix='$prefix')"
+done < <(find "$ROOT" -name "*.php" -type f -not -path "*/uploads/*" -not -path "*/Models/*" -not -path "*/Controllers/*" -print0)
+
+echo ""
+echo "Patched : $count_patched"
+echo "Already : $count_already"
+echo "Skipped : $count_skipped"
