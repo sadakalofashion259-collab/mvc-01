@@ -1,0 +1,330 @@
+/* =====================================================================
+ *  সাদা কালো ফ্যাশন — PWA UI স্টাইল
+ *  Install ব্যানার + Online/Offline সংযোগ টোস্ট
+ *  নোট: ক্লাস-নেমগুলো "skpwa-" প্রিফিক্স দিয়ে রাখা হয়েছে যাতে আপনার
+ *       বর্তমান CSS-এর সাথে কোনো সংঘর্ষ (conflict) না হয়।
+ * ===================================================================== */
+
+:root {
+  --skpwa-ink: #0e0e0e;
+  --skpwa-paper: #ffffff;
+  --skpwa-muted: #9a9a9a;
+  --skpwa-danger: #ff4d4d;
+  --skpwa-success: #29c46a;
+  --skpwa-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+/* ---------------------------------------------------------------------
+ *  সংযোগ টোস্ট (উপরে স্লাইড করে নামে)
+ * ------------------------------------------------------------------- */
+.skpwa-toast {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 12px);
+  left: 50%;
+  transform: translate(-50%, -160%);
+  z-index: 99999;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 28px);
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--skpwa-ink);
+  color: var(--skpwa-paper);
+  font-family: "Hind Siliguri", "Noto Sans Bengali", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: var(--skpwa-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.skpwa-toast.skpwa-show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.skpwa-toast .skpwa-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.skpwa-toast--offline .skpwa-dot {
+  background: var(--skpwa-danger);
+  box-shadow: 0 0 8px var(--skpwa-danger);
+  animation: skpwa-blink 1.1s ease-in-out infinite;
+}
+.skpwa-toast--online .skpwa-dot {
+  background: var(--skpwa-success);
+  box-shadow: 0 0 8px var(--skpwa-success);
+}
+@keyframes skpwa-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.skpwa-toast .skpwa-toast-icon { width: 16px; height: 16px; flex: 0 0 auto; }
+
+/* ---------------------------------------------------------------------
+ *  ইনস্টল ব্যানার (নিচ থেকে উঠে আসে)
+ * ------------------------------------------------------------------- */
+.skpwa-install {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 16px);
+  transform: translate(-50%, 180%);
+  z-index: 99998;
+  width: min(440px, calc(100vw - 24px));
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 14px 14px 16px;
+  border-radius: 18px;
+  background: var(--skpwa-ink);
+  color: var(--skpwa-paper);
+  box-shadow: var(--skpwa-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+  opacity: 0;
+  font-family: "Hind Siliguri", "Noto Sans Bengali", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.skpwa-install.skpwa-show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+.skpwa-install__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex: 0 0 auto;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  object-fit: cover;
+}
+.skpwa-install__text { flex: 1 1 auto; min-width: 0; }
+.skpwa-install__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.skpwa-install__sub {
+  font-size: 0.78rem;
+  color: var(--skpwa-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+.skpwa-install__actions { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.skpwa-btn {
+  appearance: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  white-space: nowrap;
+}
+.skpwa-btn:active { transform: scale(0.97); }
+.skpwa-btn--primary { background: var(--skpwa-paper); color: var(--skpwa-ink); }
+.skpwa-btn--ghost {
+  background: transparent;
+  color: var(--skpwa-muted);
+  width: 34px; height: 34px;
+  padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.skpwa-btn--ghost:hover { color: var(--skpwa-paper); }
+.skpwa-btn--ghost svg { width: 16px; height: 16px; }
+
+/* ---------------------------------------------------------------------
+ *  iOS ইনস্টল গাইড শিট (Safari-তে beforeinstallprompt নেই)
+ * ------------------------------------------------------------------- */
+.skpwa-ios-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  font-family: "Hind Siliguri", "Noto Sans Bengali", system-ui, sans-serif;
+}
+.skpwa-ios-sheet.skpwa-show { display: flex; }
+.skpwa-ios-card {
+  width: min(460px, 100%);
+  background: var(--skpwa-ink);
+  color: var(--skpwa-paper);
+  border-radius: 22px 22px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 22px 22px calc(22px + env(safe-area-inset-bottom));
+  animation: skpwa-sheet-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes skpwa-sheet-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.skpwa-ios-card h3 { margin: 0 0 6px; font-size: 1.1rem; font-weight: 700; }
+.skpwa-ios-card p { margin: 0 0 18px; color: var(--skpwa-muted); font-size: 0.9rem; line-height: 1.6; }
+.skpwa-ios-step { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+.skpwa-ios-step span {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.1); font-size: 0.8rem; font-weight: 700; flex: 0 0 auto;
+}
+.skpwa-ios-step svg { width: 20px; height: 20px; flex: 0 0 auto; }
+.skpwa-ios-close {
+  width: 100%; margin-top: 16px; padding: 13px;
+  border-radius: 14px; border: none; cursor: pointer;
+  background: var(--skpwa-paper); color: var(--skpwa-ink);
+  font-family: inherit; font-size: 0.95rem; font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skpwa-toast, .skpwa-install, .skpwa-ios-card { transition: opacity 0.2s ease; animation: none !important; }
+}
+
+/* =====================================================================
+ *  ↓↓↓ শুধু পপ-আপ (skpwa-modal) ঠিক করার জন্য যোগ করা হলো ↓↓↓
+ *  উপরের কোনো লাইন বদলানো হয়নি। পপ-আপ যেন বড় হয়ে ডিসপ্লের বাইরে
+ *  না যায় — মিডিয়াম সাইজে, সবুজ লেখায় আসে।
+ * ===================================================================== */
+.skpwa-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  font-family: "Hind Siliguri", "Noto Sans Bengali", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.skpwa-modal.skpwa-show { display: flex; }
+
+/* ★ মিডিয়াম সাইজ — কখনো বড় হয়ে স্ক্রিনের বাইরে যাবে না */
+.skpwa-modal .skpwa-modal__card {
+  width: 100%;
+  max-width: 360px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: #0e0e0e;
+  color: #fff;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  padding: 26px 22px 20px;
+  text-align: center;
+  position: relative;
+  animation: skpwa-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes skpwa-pop {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.skpwa-modal .skpwa-modal__card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 60px; height: 4px;
+  border-radius: 0 0 6px 6px;
+  background: linear-gradient(95deg, #16a34a 0%, #22c55e 55%, #4ade80 100%);
+}
+
+/* ★ মিডিয়াম লোগো — প্রস্থ ছাড়াবে না */
+.skpwa-modal .skpwa-modal__logo {
+  width: 78px;
+  height: 78px;
+  max-width: 40%;
+  margin: 4px auto 16px;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  padding: 6px;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12), 0 10px 26px rgba(0, 0, 0, 0.5);
+}
+
+/* ★ সবুজ লেখা */
+.skpwa-modal .skpwa-modal__title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  line-height: 1.45;
+  color: #22c55e;
+}
+.skpwa-modal .skpwa-modal__brand {
+  font-size: 1rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+  color: #22c55e;
+}
+.skpwa-modal .skpwa-modal__desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 0 0 20px;
+  color: #86efac;
+}
+
+/* পপ-আপের বোতাম (শুধু মডালের ভেতরে — আপনার পুরনো বোতাম স্টাইলে হাত দেয় না) */
+.skpwa-modal .skpwa-modal__actions { display: flex; flex-direction: column; gap: 10px; }
+.skpwa-modal .skpwa-btn {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  border-radius: 13px;
+  cursor: pointer;
+  padding: 13px 18px;
+  border: 1px solid transparent;
+}
+.skpwa-modal .skpwa-btn--primary {
+  background: linear-gradient(95deg, #16a34a 0%, #22c55e 55%, #4ade80 100%);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(22, 163, 74, 0.35);
+}
+.skpwa-modal .skpwa-btn--ghost {
+  background: transparent;
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.4);
+  font-weight: 600;
+  padding: 11px 18px;
+}
+
+/* ইনস্টল নির্দেশনা (নেটিভ প্রম্পট না থাকলে) */
+.skpwa-modal .skpwa-steps { text-align: right; margin: 4px 0 18px; }
+.skpwa-modal .skpwa-step {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 0; font-size: 0.9rem; color: #d1fae5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.skpwa-modal .skpwa-step:last-child { border-bottom: none; }
+.skpwa-modal .skpwa-step__num {
+  width: 26px; height: 26px; border-radius: 50%; flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 800; color: #fff;
+  background: linear-gradient(95deg, #16a34a, #22c55e);
+}
+.skpwa-modal .skpwa-step__txt { flex: 1 1 auto; line-height: 1.5; }
+.skpwa-modal .skpwa-step strong { color: #22c55e; }
+
+@media (max-width: 360px) {
+  .skpwa-modal .skpwa-modal__card { padding: 22px 16px 16px; border-radius: 20px; }
+  .skpwa-modal .skpwa-modal__logo { width: 68px; height: 68px; }
+  .skpwa-modal .skpwa-modal__title { font-size: 1.08rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skpwa-modal .skpwa-modal__card { animation: none !important; }
+}
