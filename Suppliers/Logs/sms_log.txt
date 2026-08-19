@@ -1,0 +1,34 @@
+[2026-07-03 21:25:57] TEST | to=01821933259 | ok=YES | SMS Send Successfuly
+[2026-07-03 21:31:09] TXN | to=01821933259 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"0C2DDXSX9DNRKZ1","responseResult":"SMS Send Successfuly"}
+[2026-07-09 08:35:03] TXN | to=01821933259 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"YK4UUB7T2OQIJDQ","responseResult":"SMS Send Successfuly"}
+[2026-07-09 08:35:13] TXN | to=01821933259 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"ZEUPPRD6MMOI1DT","responseResult":"SMS Send Successfuly"}
+[2026-07-09 08:35:51] TXN | to=01867066812 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"DGVJ51UBUJDOTB2","responseResult":"SMS Send Successfuly"}
+[2026-07-09 08:40:19] TXN | to=01867066812 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"GAGKEO59GCOYKWF","responseResult":"SMS Send Successfuly"}
+[2026-07-09 08:41:48] TXN | to=01867066812 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"XM51XIP33L9GP5H","responseResult":"SMS Send Successfuly"}
+[2026-07-11 19:33:26] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"52XP962B2K4KJAC","responseResult":"SMS Send Successfuly"}
+[2026-07-11 20:05:39] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"JORW4IO27KU6YG8","responseResult":"SMS Send Successfuly"}
+[2026-07-11 20:45:27] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"PRAZ4XV8PBMVKB3","responseResult":"SMS Send Successfuly"}
+[2026-07-11 20:45:58] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"SQNL7SNHSRLHP6E","responseResult":"SMS Send Successfuly"}
+[2026-07-11 20:46:32] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"BVE68272GLLBWO1","responseResult":"SMS Send Successfuly"}
+[2026-07-12 21:41:53] TXN | to=01867066812 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"GD2ZYSLP7MN81Z6","responseResult":"SMS Send Successfuly"}
+[2026-07-12 21:42:24] TXN | to=01568634070 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"UNWC9LXG5UG5SV3","responseResult":"SMS Send Successfuly"}
+[2026-07-12 21:46:18] TXN | to=01568634070 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"E9H7IAKCCWRHRAI","responseResult":"SMS Send Successfuly"}
+[2026-07-14 19:38:04] TXN | to=01777854646 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"L2T08YDYADYUQ0I","responseResult":"SMS Send Successfuly"}
+[2026-07-14 19:38:42] TXN | to=01766759161 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"JZU2UFWYSYID92B","responseResult":"SMS Send Successfuly"}
+[2026-07-14 21:28:10] TXN | to=01777854646 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"5MODOLHUQ9BO55E","responseResult":"SMS Send Successfuly"}
+[2026-07-15 19:24:34] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"B4IIYH8IVQNHVLC","responseResult":"SMS Send Successfuly"}
+[2026-07-16 01:03:35] TEST | to=01762555510 | ok=YES | SMS Send Successfuly
+[2026-07-16 01:05:16] TEST | to=+880 1762-555510 | ok=NO | Invalid Sender ID (কোড: 208)
+[2026-07-16 01:05:55] TEST | to=01568634070 | ok=NO | Invalid Sender ID (কোড: 208)
+[2026-07-16 01:07:11] TEST | to=01762555510 | ok=YES | SMS Send Successfuly
+[2026-07-16 14:21:20] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"59D3R8PV5C8I4YV","responseResult":"SMS Send Successfuly"}
+[2026-07-16 21:29:32] TXN | to=01716056129 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"WHQMWRJE1G2PDOU","responseResult":"SMS Send Successfuly"}
+[2026-07-19 02:50:25] TEST | to=+8801304900821 | ok=YES | SMS Send Successfuly
+[2026-07-19 03:13:22] TEST | to=01304900821 | ok=YES | SMS Send Successfuly
+[2026-07-19 17:46:25] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"N747FCWSYPSSLFZ","responseResult":"SMS Send Successfuly"}
+[2026-07-19 20:14:47] TXN | to=01716056129 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"3A3GBVQE8VC55PF","responseResult":"SMS Send Successfuly"}
+[2026-07-23 20:58:46] TXN | to=01312979363 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"CLDCWVDPECICTW3","responseResult":"SMS Send Successfuly"}
+[2026-07-27 20:50:54] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"UBCD96Z0U1UC9SU","responseResult":"SMS Send Successfuly"}
+[2026-07-28 19:55:28] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"MXOBNQNTGX34DW1","responseResult":"SMS Send Successfuly"}
+[2026-07-28 20:12:09] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"N1QWZPHE9OGM2VU","responseResult":"SMS Send Successfuly"}
+[2026-08-03 21:03:31] TXN | to=01708339552 | ok=YES | SMS Send Successfuly | raw={"statusCode":"200","status":"Success","trxnId":"9J1QSRK64TOAURF","responseResult":"SMS Send Successfuly"}
