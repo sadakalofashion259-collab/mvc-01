@@ -1,0 +1,7 @@
+{
+    "sms_enabled":       true,
+    "email_enabled":     true,
+    "admin_phone":       "01821933259",
+    "admin_email":       "hisabkhata24@gmail.com",
+    "approval_base_url": "https://sadakalofashion.com/"
+}
