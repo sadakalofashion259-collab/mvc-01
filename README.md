@@ -1,34 +1,50 @@
-# 🎨 assets/ — স্ট্যাটিক রিসোর্স
+# 🛡️ admin/ — অ্যাডমিন প্যানেল
 
-> **ফোল্ডার:** `public_html/assets/`
+> **ফোল্ডার:** `public_html/admin/`
 > **সংস্করণ:** **v1.**
-> **কাজ:** CSS, JS, আইকন, ভেন্ডর লাইব্রেরি, ছবি
+> **কাজ:** অ্যাডমিন কন্ট্রোল প্যানেল (ইউজার ম্যানেজ, মাস্টার কন্ট্রোল, OTP রিসেট)
 
-## 📄 ফাইল/ফোল্ডার তালিকা
+## 📄 ফাইল তালিকা
 
-| ফাইল/ফোল্ডার | কাজ |
-|---------------|-----|
-| `css/` | app, history, historys, monthly_report, pwa, sk-sms, sk-supplier, super_admindashboard |
-| `style_css/` | history, historys, monthly_report, premium, super_admindashboard (পুরনো কপি) |
-| `js/` | app, historys, pwa-app, sk-sms |
-| `app.js` | গ্লোবাল JS (৭.৭KB) |
-| `theme.css` | মূল থিম (১৯KB) |
-| `sk-supplier.css` | সাপ্লায়ার স্টাইল (২৬KB) |
-| `include/app_shell.php` | PWA অ্যাপ শেল |
-| `icon/` | PWA আইকন — android (৬), ios (২৯), windows (৯০+) |
-| `vendor/` | bootstrap (css/js), fontawesome (css + webfonts) |
-| `img/` `Accounts/` | ছবি + ব্র্যান্ড অ্যাসেট |
-| `index.php` | ফোল্ডার গার্ড |
+| ফাইল | লাইন | কাজ |
+|------|------|-----|
+| `index.php` | ১৮২ | ফোল্ডার গার্ড (লগইন + অ্যাডমিন চেক) |
+| `admin_panel.php` | ৫৮৪ | 🎛️ মূল অ্যাডমিন প্যানেল (ইউজার/সিস্টেম কন্ট্রোল) |
+| `admin_panel.php-ooo` | ৩৪৬ | পুরনো ব্যাকআপ কপি (অব্যবহৃত) |
+| `admin_action_auth.php` | ৫৪ | অ্যাকশন পাসওয়ার্ড অথ (ব্লক/ডিলিটের আগে) |
+| `change_action_password.php` | ১১১ | অ্যাকশন পাসওয়ার্ড পরিবর্তন |
+| `manage_users.php` | ১২০ | ইউজার ম্যানেজমেন্ট (রোল, স্ট্যাটাস) |
+| `master_control.php` | ৩৫ | মাস্টার কন্ট্রোল রিডাইরেক্ট |
+| `sadakalo_full_admin_rest_otp.php` | ১৬১ | OTP রিসেট/রিস্টোর (পূর্ণ অ্যাডমিন রিকভারি) |
 
 ---
 
-## 🔍 লজিক নোট
+## 🔍 ফাইলওয়াইজ লজিক
 
-- `icon/ios/` — ১৬px থেকে ১০২৪px পর্যন্ত সব সাইজ (Apple স্প্ল্যাশ স্ক্রিন)
-- `icon/windows/` — Square44x44, Wide310x150, StoreLogo, Splash, Small/LargeTile + targetsize ভার্সন
-- `vendor/fontawesome/webfonts/` — ttf + woff2 (সব আইকন)
-- `.htaccess` — নির্দিষ্ট ফাইল অ্যাক্সেস নিয়ন্ত্রণ
+### `admin_panel.php`
+- সেশন + অ্যাডমিন রোল ভেরিফাই
+- ইউজার তালিকা (active/inactive/blocked)
+- `toggleUserStatus()` — স্ট্যাটাস পরিবর্তন
+- `setTimedBlock()` — সময়সীমাসহ ব্লক
+- ব্রডকাস্ট নোটিশ পাঠানো
+- ইউজার ডিলিট (অ্যাকশন পাসওয়ার্ড দিয়ে)
+- AJAX + মোডাল UI
+
+### `admin_action_auth.php`
+- অ্যাডমিন অ্যাকশন পাসওয়ার্ড চেক (সেশনে টেম্প অথ)
+- ভুল হলে ডিনাই
+
+### `change_action_password.php`
+- পুরনো অ্যাকশন পাস চেক → নতুন সেট (হ্যাশড)
+
+### `manage_users.php`
+- ইউজার CRUD + রোল বদল (admin/staff)
+
+### `sadakalo_full_admin_rest_otp.php`
+- OTP ভেরিফিকেশন
+- অ্যাডমিন পাসওয়ার্ড রিসেট / অ্যাকাউন্ট রিস্টোর
+- সিকিউরিটি প্রশ্ন/কোড যাচাই
 
 ---
 
-*📦 assets — v1. · SADA KALO FASHION*
+*📦 admin — v1. · SADA KALO FASHION*
