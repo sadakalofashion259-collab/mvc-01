@@ -1,0 +1,120 @@
+{
+  "name": "SADA-KALO",
+  "short_name": "SADA-KALO",
+  "description": "সাদা-কালো ফ্যাশন — পেশাদার লেজার, ইনভেন্টরি, সেলস, স্টাফ এ মতো ব্যবহার করুন।",
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#eee",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "bn",
+  "id": "/",
+  "icons": [
+    {
+      "src": "https://sadakalofashion.com/logo.png",
+      "sizes": "48x48 72x72 96x96 120x120 128x128 144x144 152x152 192x192 256x256 384x384 512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/icon/android/launchericon-48x48.logo.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/icon/android/launchericon-72x72.logo.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/icon/android/launchericon-96x96.logo.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/icon/android/launchericon-144x144.logo.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/icon/android/launchericon-192x192.logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/icon/android/launchericon-512x512.logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["shopping", "lifestyle", "business", "productivity"],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "ড্যাশবোর্ড",
+      "short_name": "ড্যাশবোর্ড",
+      "description": "প্রধান ড্যাশবোর্ডে যান",
+      "url": "/dashboard.php?source=pwa",
+      "icons": [{ "src": "/assets/icon/android/launchericon-96x96.logo.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "হিসাব / লেজার",
+      "short_name": "হিসাব",
+      "description": "গ্রাহক লেজার ও অ্যাকাউন্টিং",
+      "url": "/history.php?source=pwa",
+      "icons": [{ "src": "/assets/icon/android/launchericon-96x96.logo.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "ক্যাশ সেল",
+      "short_name": "ক্যাশ",
+      "description": "ক্যাশ বিক্রয় এন্ট্রি",
+      "url": "/cash_sale.php?source=pwa",
+      "icons": [{ "src": "/assets/icon/android/launchericon-96x96.logo.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "স্টক / ইনভেন্টরি",
+      "short_name": "স্টক",
+      "description": "পণ্যের স্টক ও ইনভেন্টরি",
+      "url": "/shop_@invantory?source=pwa",
+      "icons": [{ "src": "/assets/icon/android/launchericon-96x96.logo.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "স্টাফ",
+      "short_name": "স্টাফ",
+      "description": "স্টাফ ম্যানেজমেন্ট",
+      "url": "/Staff/index.php?source=pwa",
+      "icons": [{ "src": "/assets/icon/android/launchericon-96x96.logo.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "রিপোর্ট",
+      "short_name": "রিপোর্ট",
+      "description": "দৈনিক রিপোর্ট ও পরিসংখ্যান",
+      "url": "/reports.php?source=pwa",
+      "icons": [{ "src": "/assets/icon/android/launchericon-96x96.logo.png", "sizes": "96x96" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/banner.jpg",
+      "sizes": "192x108",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "সাদাকালো ফ্যাশন ড্যাশবোর্ড"
+    },
+    {
+      "src": "/sada_kalo_fashion_banner.jpg",
+      "sizes": "108x192",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "সাদাকালো ফ্যাশন মোবাইল ভিউ"
+    }
+  ]
+}

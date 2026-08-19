@@ -1,0 +1,77 @@
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# =====================================================================
+#  সাদা কালো ফ্যাশন — PWA (ন্যূনতম) Apache কনফিগ
+#  ---------------------------------------------------------------------
+#   • sw.js              → কখনো ক্যাশ নয় + পুরো সাইটে scope
+#   • offline / manifest → সবসময় তাজা
+#   • নামে logo/banner থাকা ছবি → ১ বছর ব্রাউজার ক্যাশ (যেকোনো ফোল্ডার)
+#   • আর কোনো css/js/ছবি দীর্ঘ ক্যাশ হবে না
+# =====================================================================
+
+# ---- MIME টাইপ ----
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest
+    AddType application/json .json
+</IfModule>
+
+# ---- Header নিয়ম ----
+<IfModule mod_headers.c>
+
+    # Service Worker: পুরো সাইটে scope + কখনো ক্যাশ নয়
+    <Files "sw.js">
+        Header set Service-Worker-Allowed "/"
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </Files>
+
+    # pwa-app.js: কখনো ক্যাশ নয়
+    <Files "pwa-app.js">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </Files>
+
+    # offline.html ও manifest সবসময় তাজা
+    <FilesMatch "(offline\.html|manifest\.json)$">
+        Header set Cache-Control "no-cache"
+    </FilesMatch>
+
+    # সব ফোল্ডারের .css → ১ বছর ব্রাউজার ক্যাশ
+    <FilesMatch "\.css$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # নামে logo/banner থাকা ছবি ও sada_kalo_fashion → দীর্ঘ ক্যাশ
+    <FilesMatch "(?i)(.*(logo|banner).*|sada_kalo_fashion)\.(png|jpe?g|webp|svg|gif|ico)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+</IfModule>
+
+# ---- মেয়াদ: css + logo/banner ছবি ১ বছর ----
+<IfModule mod_expires.c>
+    ExpiresActive On
+    <FilesMatch "\.css$">
+        ExpiresDefault "access plus 1 year"
+    </FilesMatch>
+    <FilesMatch "(?i)(.*(logo|banner).*|sada_kalo_fashion)\.(png|jpe?g|webp|svg|gif|ico)$">
+        ExpiresDefault "access plus 1 year"
+    </FilesMatch>
+</IfModule>
+# =====================================================================
+#  PWA অংশ শেষ
+
+# URL Rewriting (সব নন-ফাইল রিকোয়েস্ট index.php-তে রিডাইরেক্ট হবে)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “alt-php83” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-alt-php83 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

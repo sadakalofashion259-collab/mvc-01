@@ -1,0 +1,316 @@
+<?php
+/**
+ * PARTIAL: sidebar.php
+ * ─────────────────────────────────────────────────────────────
+ * CSS Classes Used:
+ *   .prem-overlay        → dark overlay when sidebar is open
+ *   .prem-sidebar        → main sidebar nav container
+ *   .sb-head             → sidebar top logo/user section
+ *   .sb-close-btn        → × close button
+ *   .sb-logo-ring        → circular logo wrapper
+ *   .sb-brand-name       → "SADA KALO FASHION" label
+ *   .sb-clock            → live clock display
+ *   .sb-user-pill        → user avatar + name row
+ *   .sb-user-avatar      → user profile image (36px circle)
+ *   .sb-user-name        → @username text
+ *   .sb-user-role        → ROLE badge text
+ *   .sb-theme-toggle     → dark/light toggle button
+ *   .sb-toggle-pill      → sliding pill indicator inside toggle
+ *   .side-menu           → scrollable menu body
+ *   .sb-folder-btn       → collapsible admin panel button
+ *   .sb-folder-content   → hidden folder content panel
+ *   .sb-section-title    → section divider label
+ *   .action-grid         → 3-column icon grid
+ *   .action-item         → single grid item (link wrapper)
+ *   .round-3d-btn        → 3D circular icon button
+ *   .label-3d            → label below icon button
+ *   .anim-ayra-gold      → gold animated CR button
+ *   .gold-CR             → CR text inside gold button
+ *   .sb-quick-info       → stats section at bottom
+ *   .sb-quick-title      → "QUICK INFO" heading
+ *   .sb-stat-card        → individual stat box
+ *   .sb-stat-num         → big number in stat
+ *   .sb-stat-label       → label under number
+ *   .sb-footer           → copyright footer row
+ *   icon-* classes       → per-button color/icon overrides
+ *     icon-audit, icon-loan-admin, icon-delete, icon-cashmemo
+ *     icon-superadmin-folder, icon-newpost, icon-location
+ *     icon-notify, icon-backup, icon-master, icon-hazira
+ *     icon-analysis, icon-history-admin, icon-loan, icon-historys
+ *     icon-super, icon-task, icon-sales, icon-expense
+ *     icon-inventory, icon-history, icon-customers, icon-suppliers
+ *     icon-stock, icon-settings, icon-logout
+ * ─────────────────────────────────────────────────────────────
+ * Required vars (auto-read from session / $viewDataArray):
+ *   $_SESSION['username']        → sidebar username
+ *   $_SESSION['role']            → sidebar role
+ *   $_SESSION['profile_pic']     → sidebar avatar
+ *   $viewDataArray (optional)    → nextMemoNumber, activeCustomersList
+ */
+
+// ── Sidebar local variables ────────────────────────────────────
+$_sbNextMemo  = $viewDataArray['nextMemoNumber']        ?? null;
+$_sbCustCount = isset($viewDataArray['activeCustomersList'])
+                ? count($viewDataArray['activeCustomersList']) : null;
+$_sbUsername  = htmlspecialchars((string) ($_SESSION['username'] ?? 'User'), ENT_QUOTES, 'UTF-8');
+$_sbRole      = strtoupper((string) ($_SESSION['role'] ?? 'Staff'));
+$_sbPic       = htmlspecialchars((string) ($_SESSION['profile_pic'] ?? 'default_user.png'), ENT_QUOTES, 'UTF-8');
+$_sbUserRole  = (string) ($_SESSION['role'] ?? 'viewer');
+?>
+
+<!-- ══ OVERLAY ════════════════════════════════════════════════
+     CSS: .prem-overlay
+══════════════════════════════════════════════════════════════ -->
+<div class="prem-overlay" id="myOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ══ SIDEBAR ════════════════════════════════════════════════
+     CSS: .prem-sidebar | .sb-head | .sb-user-pill | .side-menu
+          .action-grid | .round-3d-btn | .label-3d | .sb-footer
+     File: assets/style_css/premium.css
+══════════════════════════════════════════════════════════════ -->
+<nav class="prem-sidebar" id="mySidebar" aria-label="Main Navigation">
+
+    <!-- ── Sidebar Head ──────────────────────────────────────── -->
+    <div class="sb-head">
+
+        <!-- Close Button -->
+        <button class="sb-close-btn" onclick="toggleSidebar()" type="button" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Logo Ring -->
+        <div class="sb-logo-ring">
+            <img src="logo.png" alt="Sada Kalo Fashion"
+                 onerror="this.src='https://placehold.co/46x46/5B8EFF/fff?text=SK'">
+        </div>
+
+        <!-- Brand Name -->
+        <div class="sb-brand-name">═════ সাদা-কালো ফ্যাশন ═════</div>
+
+        <!-- Live Clock -->
+        <div class="sb-clock" id="liveClock">-- : -- : --</div>
+
+        <!-- User Pill -->
+        <div class="sb-user-pill">
+            <img class="sb-user-avatar"
+                 src="<?php echo $_sbPic; ?>"
+                 alt="<?php echo $_sbUsername; ?>"
+                 onerror="this.src='https://placehold.co/36x36/5B8EFF/fff?text=U'">
+            <div>
+                <div class="sb-user-name">@<?php echo $_sbUsername; ?></div>
+                <div class="sb-user-role"><?php echo $_sbRole; ?></div>
+            </div>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button class="sb-theme-toggle" onclick="toggleTheme()" type="button" id="themeToggleBtn">
+            <span>
+                <i id="themeIcon" class="fas fa-moon"></i>
+                <span id="themeLabel">ডার্ক মোড</span>
+            </span>
+            <div class="sb-toggle-pill"></div>
+        </button>
+
+    </div><!-- /sb-head -->
+
+    <!-- ── Scrollable Menu Body ──────────────────────────────── -->
+    <div class="side-menu">
+
+        <?php if ($_sbUserRole === 'admin'): ?>
+
+            <!-- ── ADMIN PANEL Collapsible Folder ─────────────── -->
+            <button class="sb-folder-btn" onclick="toggleAdminPanel()" type="button">
+                <span><i class="fas fa-crown"></i>&nbsp; অ্যাডমিন প্যানেল</span>
+                <i id="adminPanelIcon" class="fas fa-chevron-down"></i>
+            </button>
+
+            <div id="adminCorePanel" class="sb-folder-content">
+                <div class="sb-section-title">ADMIN CORE</div>
+                <div class="action-grid">
+
+                <a href="../Inventory/inventory_dashboard.php" class="action-item">
+                        <div class="round-3d-btn icon-audit"><i class="fas fa-laptop-code"></i></div>
+                        <span class="label-3d">INV</span>
+                    </a>
+
+                    <a href="/Sales/" class="action-item">
+                        <div class="round-3d-btn icon-loan-admin"><i class="fas fa-tachometer-alt"></i></div>
+                        <span class="label-3d">test</span>
+                    </a>
+
+                    <a href="../my_sadakalo_full_admin/change_action_password.php" class="action-item">
+                        <div class="round-3d-btn icon-delete"><i class="fas fa-trash-alt"></i></div>
+                        <span class="label-3d">Del Pass</span>
+                    </a>
+
+                    <a href="EmailReports/Sales" class="action-item">
+                        <div class="round-3d-btn icon-cashmemo"><i class="fas fa-chart-line"></i></div>
+                        <span class="label-3d">Sales</span>
+                    </a>
+
+                    <a href="SuperAdminDashboard.php" class="action-item">
+                        <div class="round-3d-btn icon-superadmin-folder"><i class="fas fa-users-cog"></i></div>
+                        <span class="label-3d">Super-Admin</span>
+                    </a>
+
+                    <a href="post.php" class="action-item">
+                        <div class="round-3d-btn icon-newpost"><i class="fas fa-edit"></i></div>
+                        <span class="label-3d">New Post</span>
+                    </a>
+
+                    <a href="DB.php" class="action-item">
+                        <div class="round-3d-btn icon-location"><i class="fas fa-map-marker-alt"></i></div>
+                        <span class="label-3d">DB-chek</span>
+                    </a>
+
+                    <a href="sadakalo_popup_system/send_notification.php" class="action-item">
+                        <div class="round-3d-btn icon-notify"><i class="fas fa-bell"></i></div>
+                        <span class="label-3d">Notify</span>
+                    </a>
+
+                    <a href="backup.php" class="action-item">
+                        <div class="round-3d-btn icon-backup"><i class="fas fa-database"></i></div>
+                        <span class="label-3d">DB Backup</span>
+                    </a>
+
+                </div>
+            </div><!-- /adminCorePanel -->
+
+            <!-- ── ═════ সাদা-কালো ফ্যাশন ═════ হিসাব খাতা ── -->
+            <div class="sb-section-title">═════ সাদা-কালো ফ্যাশন ═════</div>
+            <div class="action-grid">
+
+                <?php if ($_sbUserRole === 'admin'): ?>
+                    <a href="admin/master_control.php" class="action-item">
+                        <div class="round-3d-btn icon-master"><i class="fas fa-chess-king"></i></div>
+                        <span class="label-3d">মাস্টার হাব</span>
+                    </a>
+                <?php endif; ?>
+
+                <a href="../Staff/index.php" class="action-item">
+                    <div class="round-3d-btn icon-hazira"><i class="fas fa-users"></i></div>
+                    <span class="label-3d">স্টাফ রিপোর্ট</span>
+                </a>
+
+                <a href="/Accounts/Dps/" class="action-item">
+                    <div class="round-3d-btn icon-bank"><i class="fas fa-bank"></i></div>
+                    <span class="label-3d">DPS</span>
+                </a>
+
+                <a href="Historys/" class="action-item">
+                    <div class="round-3d-btn icon-history-admin"><i class="fas fa-file-alt"></i></div>
+                    <span class="label-3d">ক্যাশ-হিস্ট্রি</span>
+                </a>
+
+                <a href="/Accounts/Loan/" class="action-item">
+                    <div class="round-3d-btn icon-loan"><i class="fas fa-handshake"></i></div>
+                    <span class="label-3d">ঋণ ^ লোন</span>
+                </a>
+
+                <a href="History/" class="action-item">
+                    <div class="round-3d-btn icon-historys"><i class="fas fa-history"></i></div>
+                    <span class="label-3d">Historys</span>
+                </a>
+
+                <a href="/Audit/" class="action-item">
+                    <div class="round-3d-btn icon-super"><i class="fas fa-users-cog"></i></div>
+                    <span class="label-3d">Audit Log</span>
+                </a>
+
+                <a href="Task/index.php" class="action-item">
+                    <div class="round-3d-btn icon-task"><i class="fas fa-tasks"></i></div>
+                    <span class="label-3d">Task</span>
+                </a>
+
+                <a href="BankCard/" class="action-item">
+                    <div class="round-3d-btn anim-ayra-gold">
+                        <span class="gold-CR">CR</span>
+                    </div>
+                    <span class="label-3d" style="color:var(--gold);">Credit</span>
+                </a>
+
+            </div><!-- /হিসাব খাতা grid -->
+
+        <?php endif; ?>
+
+        <!-- ── USER ACTIONS ───────────────────────────────────── -->
+        <div class="sb-section-title">USER ACTIONS</div>
+        <div class="action-grid">
+
+            <a href="cash_sale.php" class="action-item">
+                <div class="round-3d-btn icon-sales"><i class="fas fa-cart-plus"></i></div>
+                <span class="label-3d">সেলস</span>
+            </a>
+
+            <a href="Expense/index.php" class="action-item">
+                <div class="round-3d-btn icon-expense"><i class="fas fa-file-invoice-dollar"></i></div>
+                <span class="label-3d">খরচ</span>
+            </a>
+
+            <a href="../Inventory/inventory_dashboard.php" class="action-item">
+                <div class="round-3d-btn icon-inventory"><i class="fas fa-boxes"></i></div>
+                <span class="label-3d">ইনভেন্টরি</span>
+            </a>
+
+            <a href="daily_report.php" class="action-item">
+                <div class="round-3d-btn icon-history"><i class="fas fa-clipboard-list"></i></div>
+                <span class="label-3d">হিস্ট্রি</span>
+            </a>
+
+            <a href="Customer/customers.php" class="action-item">
+                <div class="round-3d-btn icon-customers"><i class="fas fa-user-tag"></i></div>
+                <span class="label-3d">কাস্টমার</span>
+            </a>
+
+            <a href="Suppliers/suppliers.php" class="action-item">
+                <div class="round-3d-btn icon-suppliers"><i class="fas fa-dolly"></i></div>
+                <span class="label-3d">সাপ্লায়ার</span>
+            </a>
+
+            <a href="Stock/index.php" class="action-item">
+                <div class="round-3d-btn icon-stock"><i class="fas fa-cubes"></i></div>
+                <span class="label-3d">স্টক</span>
+            </a>
+
+            <a href="Profile/" class="action-item">
+                <div class="round-3d-btn icon-settings"><i class="fas fa-cogs"></i></div>
+                <span class="label-3d">সেটিংস</span>
+            </a>
+
+            <a href="logout.php" class="action-item">
+                <div class="round-3d-btn icon-logout"><i class="fas fa-power-off"></i></div>
+                <span class="label-3d">লগ আউট</span>
+            </a>
+
+        </div><!-- /user actions grid -->
+
+        <!-- ── Quick Info ─────────────────────────────────────── -->
+        <?php if ($_sbNextMemo !== null || $_sbCustCount !== null): ?>
+        <div class="sb-quick-info">
+            <div class="sb-quick-title">
+                <i class="fas fa-chart-bar"></i> QUICK INFO
+            </div>
+            <?php if ($_sbNextMemo !== null): ?>
+            <div class="sb-stat-card">
+                <span class="sb-stat-num"><?php echo htmlspecialchars((string) $_sbNextMemo, ENT_QUOTES, 'UTF-8'); ?></span>
+                <span class="sb-stat-label">পরবর্তী মেমো নং</span>
+            </div>
+            <?php endif; ?>
+            <?php if ($_sbCustCount !== null): ?>
+            <div class="sb-stat-card">
+                <span class="sb-stat-num"><?php echo (int) $_sbCustCount; ?></span>
+                <span class="sb-stat-label">সক্রিয় কাস্টমার</span>
+            </div>
+            <?php endif; ?>
+        </div>
+        <?php endif; ?>
+
+        <!-- ── Footer ─────────────────────────────────────────── -->
+        <div class="sb-footer">
+            <i class="fas fa-shield-alt" style="color:var(--green);"></i>
+         ═════ সাদা-কালো ফ্যাশন ═════ <br>
+            &copy; 2026 Sada Kalo Fashion
+        </div>
+ 
+    </div><!-- /side-menu -->
+</nav><!-- /prem-sidebar -->
